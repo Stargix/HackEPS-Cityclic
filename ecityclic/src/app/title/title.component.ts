@@ -1,23 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer2, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-title',  // This matches what you use in app.component.html
+  selector: 'app-title',
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.css']
 })
-export class TitleComponent {
+export class TitleComponent implements OnDestroy {
   title = 'Welcome to Ecityclic!';
 
-  ngOnInit() {
-    // Obtener los elementos del DOM
-    const hamburgerMenu: HTMLElement | null = document.getElementById('hamburger-menu');
-    const menu: HTMLElement | null = document.getElementById('menu');
+  @ViewChild('hamburgerMenu') hamburgerMenu!: ElementRef;
+  @ViewChild('menu') menu!: ElementRef;
 
-    // Verificar si los elementos existen y agregar el evento
-    if (hamburgerMenu && menu) {
-      hamburgerMenu.addEventListener('click', () => {
-        menu.classList.toggle('hidden'); // Alterna la clase 'hidden'
-      });
+  private listener!: () => void;
+
+  constructor(private renderer: Renderer2) {}
+
+  ngAfterViewInit() {
+    this.listener = this.renderer.listen(this.hamburgerMenu.nativeElement, 'click', () => {
+      this.menu.nativeElement.classList.toggle('hidden');
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.listener) {
+      this.listener();
     }
   }
+
+  
 }
