@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TitleComponent } from "./title/title.component";
+import { BuscadorComponent } from "./buscador/buscador.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [TitleComponent, BuscadorComponent]
 })
 export class AppComponent {
   title = 'ecityclic';
