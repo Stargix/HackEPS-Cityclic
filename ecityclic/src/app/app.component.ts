@@ -4,12 +4,14 @@ import { TitleComponent } from "./title/title.component";
 import { SearchComponent } from "./buscador/buscador.component";
 import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
+import { EncabezadoComponent } from "./encabezado/encabezado.component";
+import { CartasservicioComponent } from "./cartasservicio/cartasservicio.component";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [CommonModule,TitleComponent, SearchComponent, FooterComponent, LoginComponent]
+  imports: [CommonModule, TitleComponent, SearchComponent, FooterComponent, LoginComponent, EncabezadoComponent, CartasservicioComponent]
 })
 export class AppComponent {
   title = 'ecityclic';

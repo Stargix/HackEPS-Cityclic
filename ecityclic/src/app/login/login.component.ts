@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginStatusService } from './login-status.service';
 
-import { postData } from '../../postData';
-
 @Component({
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
@@ -37,7 +35,7 @@ export class LoginComponent {
       // Lógica de login
       this.loginStatusService.setLoginStatus(true);  // Guardar el estado en el servicio
       this.loginStatus.emit(true);  // Emitir el estado
-      postData(this.isLoggedIn);
+
       console.log('Login:', { email: this.email, password: this.password });
     } else {
       // Lógica de registro

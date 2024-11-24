@@ -17,4 +17,24 @@
   .hidden {
     display: none;
   }
-  
+  .encabez {
+    padding: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top, #8fd374, #4c8417);
+}
+
+.label {
+    position: relative;
+    display: contents;
+    width: 280px;
+    padding: 15px 8px 15px 10px;
+    text-align: center;
+    text-shadow:
+    20px 20px 60px #cdecdb,
+    -20px -20px 60px #e1f780;
+    width: 800px;
+    align-items: center;
+    color: #ffffff;
+}

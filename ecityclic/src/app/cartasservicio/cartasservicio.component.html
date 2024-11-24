@@ -1,0 +1,15 @@
+<div class="container">
+@for (cards of servicios; track cards.id) {
+<div class="card">
+    <div class="card__image">
+        <img alt="" [src]="cards.img">
+    </div>
+    <div class="card__content">
+        <p class="card__title">{{cards.nombre}}</p>
+        <p class="card__text">{{cards.descripcion}}</p>
+        <a class="card__button" href="#">Lleguir més</a>
+    </div>
+</div>
+}
+</div>
+
