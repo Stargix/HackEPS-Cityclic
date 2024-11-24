@@ -1,0 +1,8 @@
+<app-login *ngIf="!isLoggedIn" (loginStatus)="onLoginStatusChange($event)"></app-login>
+
+<div *ngIf="isLoggedIn">
+    <app-title></app-title>
+    <app-buscador></app-buscador>
+    <app-footer></app-footer>
+    <button class="" (click)="onLogout()">Logout</button>
+</div>
