@@ -1,7 +1,7 @@
 import joblib
 from flask import Flask, request, jsonify
 import pandas as pd
-from prova import similar
+#from prova import similar
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
@@ -28,21 +28,15 @@ X_test = pd.read_csv('first_row_X_test.csv').T
 
 # Ensure X_test has the same number of features as the model expects
 #print(X_test.columns)
-print("Datos de prueba cargados exitosamente")
+print("Resultat de la predicció:")
 
 model_accio = joblib.load('model_accio.joblib')
-#print(model_accio)
-prediccio = model_accio.predict(X_test)
-#print(X_test)
-# Usar el modelo cargado para predicciones
 
-print(prediccio[0])
 
 def predictor(data):
     
-    y_pred = modelo_cargado.predict(X_test)
+    y_pred = model_accio.predict(X_test)
 
-    print(y_pred)
     predictor = y_pred[0]
 
     if predictor == 0:
@@ -52,7 +46,9 @@ def predictor(data):
     else:    
         pred = 'PFST'
 
-    return y_pred
+    return pred
+
+print(predictor(X_test))
 
 """app = Flask(__name__)
 

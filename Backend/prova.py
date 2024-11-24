@@ -12,28 +12,14 @@ file_path = '../../accions.csv'
 file_path2 = '../../tramits.csv'
 rows = 10000
 
-# Load only the first 10000 rows of the CSV file
 df = pd.read_csv(file_path, nrows=rows)
 df = df[df['Usuari'].notnull()]
-#df = df[df['Accio'].notnull()]
 
 df_tramits = pd.read_csv(file_path2, nrows=rows)
 
 df_comprova = df_tramits.copy()
-#print(df_tramits)
-# Check for null IDs in df_tramits
-
-
-#df = pd.merge(df, df_tramits, left_on='Tramit', right_on='Id', how='inner')
-#df = df.drop(columns=['Usuari', 'Representat', 'Sessio','Tramit','Data'])
-
-#df_tramits = df_tramits[df_tramits['Vigent'] == True]
-
-#df_tramits = df_tramits.drop(columns=['Vigent'])
 
 df_tramits['Vigent'] = df_tramits['Vigent'].apply(lambda x: 1 if x else 0)
-# Normalize the titles by converting them to lowercase
-#print(df_tramits)
 
 from gensim.models import Word2Vec
 import numpy as np
@@ -93,15 +79,8 @@ def similar(id_tramit, top,df_tramits=df_tramits):
         lst.append(result)
     return lst
 
-idd = '8cnvn74c+4vTFB4rr8HRpajSvy4TGT5+lLH7PRIGyHU='
+idd = 'TuA2G4GjZgx7Ni1FmV2/SwgqxZH8Dxfw3eC6pN+dCTw='
 
 fila= similar(idd,10)
 
 print(fila)
-# Obtener los títulos del trámite con idd y de los 5 trámites más similares
-"""titulo_idd = df_comprova[df_comprova['Id'] == idd]['Titol'].values[0]
-titulos_similares = df_comprova[df_comprova['Id'].isin(fila)]['Titol'].values
-
-print("Título del trámite con idd:", titulo_idd)
-print("Títulos de los 5 trámites más similares:", titulos_similares)"""
-
