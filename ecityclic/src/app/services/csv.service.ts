@@ -17,7 +17,7 @@ export class CsvService {
   getTramits(): Observable<Tramit[]> {
     console.log('Haciendo solicitud para obtener el archivo CSV...');
 
-    return this.http.get('./tramits.csv', { responseType: 'text' })
+    return this.http.get('src/assets/tramits.csv', { responseType: 'text' })
       .pipe(
         map(csv => {
           console.log('CSV recibido:', csv); // Imprime el CSV tal como llega
