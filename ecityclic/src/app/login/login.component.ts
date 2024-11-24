@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoginStatusService } from './login-status.service';
+
+import { postData } from '../../postData';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +20,8 @@ export class LoginComponent {
   rememberMe = false;
   isLoggedIn = false;
 
+  constructor(private loginStatusService: LoginStatusService) {}
+
   // Cambia el modo de login/registro
   toggleMode() {
     this.isLogin = !this.isLogin;
@@ -30,17 +35,18 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.isLogin) {
       // Lógica de login
-      this.isLoggedIn = true;
-      this.loginStatus.emit(true);  // Emitir el estado a AppComponent
-      console.log('Login:', { email: this.email, password: this.password, rememberMe: this.rememberMe });
+      this.loginStatusService.setLoginStatus(true);  // Guardar el estado en el servicio
+      this.loginStatus.emit(true);  // Emitir el estado
+      postData(this.isLoggedIn);
+      console.log('Login:', { email: this.email, password: this.password });
     } else {
       // Lógica de registro
       if (this.password !== this.confirmPassword) {
         console.error('Passwords do not match');
         return;
       }
-      this.isLoggedIn = true;
-      this.loginStatus.emit(true);  // Emitir estado de login después del registro
+      this.loginStatusService.setLoginStatus(true);  // Guardar el estado en el servicio
+      this.loginStatus.emit(true);  // Emitir el estado
       console.log('Register:', { email: this.email, password: this.password });
     }
   }
