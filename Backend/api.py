@@ -1,6 +1,7 @@
 import joblib
 from flask import Flask, request, jsonify
 import pandas as pd
+from prova import similar
 
 
 modelo_cargado = joblib.load('mejor_modelo_lgb.pkl')
@@ -39,5 +40,30 @@ def predict():
     
     return jsonify({'action': pred})
 
+@app.route('/similar', methods=['POST'])
+def find_similar():
+    data = request.get_json(force=True)
+    result = similar(data)
+    
+    return jsonify(result)
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+#Usuari registrat? Títol, Vigent, Data
+
+"""class Tramit:
+    def __init__(self, usuari, titol, vigent, data):
+        self.usuari = usuari
+        self.titol = titol
+        self.vigent = vigent
+        self.data = data
+    
+    def json_to_dict(self):
+        return {
+            'usuari': self.usuari,
+            'titol': self.titol,
+            'vigent': self.vigent,
+            'data': self.data
+        }"""
