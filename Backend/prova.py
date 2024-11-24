@@ -86,11 +86,10 @@ def similar(id_tramit, top,df_tramits=df_tramits):
 
     for tramit_id in top_ids:
         result = {}
-        for tramit_id in top_ids:
-            titol = df_comprova[df_comprova['Id'] == tramit_id]['Titol'].values[0]
-            vigent = df_comprova[df_comprova['Id'] == tramit_id]['Vigent'].values[0]
-            result['titol'] = titol
-            result['vigent'] = bool(vigent)
+        titol = df_comprova[df_comprova['Id'] == tramit_id]['Titol'].values[0]
+        vigent = df_comprova[df_comprova['Id'] == tramit_id]['Vigent'].values[0]
+        result['titol'] = titol
+        result['vigent'] = bool(vigent)
         lst.append(result)
     return lst
 
