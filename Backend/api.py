@@ -2,18 +2,41 @@ import joblib
 from flask import Flask, request, jsonify
 import pandas as pd
 from prova import similar
+import numpy as np
+from sklearn.base import BaseEstimator, ClassifierMixin
+
+class VotingEnsembleClassifier(BaseEstimator, ClassifierMixin):
+    def __init__(self, models):
+        self.models = models
+    
+    def fit(self, X, y):
+        # Los modelos ya están fiteados, así que no hacemos nada aquí
+        return self
+    
+    def predict(self, X):
+        # Obtener predicciones de todos los modelos
+        predictions = [model.predict(X) for model in self.models]
+        
+        # Fusionar las predicciones usando votación mayoritaria (para clasificación)
+        predictions = np.array(predictions).T  # Transponer para tener una fila por muestra
+        fused_predictions = np.apply_along_axis(lambda x: np.bincount(x).argmax(), axis=1, arr=predictions)
+        
+        return fused_predictions
 
 
-modelo_cargado = joblib.load('mejor_modelo_lgb.pkl')
-print("Modelo cargado exitosamente")
 X_test = pd.read_csv('first_row_X_test.csv').T
 
 # Ensure X_test has the same number of features as the model expects
-print(X_test.columns)
+#print(X_test.columns)
 print("Datos de prueba cargados exitosamente")
 
+model_accio = joblib.load('model_accio.joblib')
+#print(model_accio)
+prediccio = model_accio.predict(X_test)
 #print(X_test)
 # Usar el modelo cargado para predicciones
+
+print(prediccio[0])
 
 def predictor(data):
     
@@ -31,7 +54,7 @@ def predictor(data):
 
     return y_pred
 
-app = Flask(__name__)
+"""app = Flask(__name__)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -49,7 +72,7 @@ def find_similar():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
+"""
 
 #Usuari registrat? Títol, Vigent, Data
 
